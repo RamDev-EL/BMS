@@ -1,0 +1,31 @@
+# Render Blueprint for the BMS. Put the bms folder at the repo root, push, then
+# Render > New > Blueprint. Set the three "sync: false" values in the dashboard.
+databases:
+  - name: bms-db
+    plan: basic-256mb
+services:
+  - type: web
+    name: bms
+    runtime: docker
+    plan: starter            # paid plan needed for the persistent disk (uploads)
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /app/
+    disk:
+      name: uploads
+      mountPath: /data/uploads
+      sizeGB: 5
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase: {name: bms-db, property: connectionString}
+      - key: JWT_SECRET
+        generateValue: true
+      - key: INTEGRATION_API_KEY
+        generateValue: true
+      - key: SEED_DEMO
+        value: "0"
+      - key: BOOTSTRAP_ADMIN_EMAIL
+        sync: false
+      - key: BOOTSTRAP_ADMIN_PASSWORD
+        sync: false
+      - key: BOOTSTRAP_ADMIN_NAME
+        value: Group Admin

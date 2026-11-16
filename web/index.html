@@ -1,0 +1,43 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Building Management System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=11"></head><body>
+<div id="login" class="hidden">
+  <section class="hero">
+    <div class="brand" style="padding:0"><div class="logo">B</div><div><b>Building Management System</b><small>Administration Services</small></div></div>
+    <div><h1>One place to run every facility, vehicle and compliance service.</h1>
+      <p>Premises, fleet, tickets and statutory documents, with a clear owner, status and audit trail for each.</p>
+      <ul id="heroList"></ul></div>
+    <small class="muted">© Group Administration · Access is role and scope based</small>
+  </section>
+  <section class="form"><div class="lbox">
+    <h2>Sign in</h2><p class="muted" style="margin:0 0 22px">Use your corporate account to continue.</p>
+    <form id="lform">
+      <label class="f">Email<input id="em" type="email" autocomplete="username" autocapitalize="none" autocorrect="off" spellcheck="false" placeholder="name@company.com"></label>
+      <label class="f">Password<input id="pw" type="password" name="password" autocomplete="off" autocapitalize="none" autocorrect="off" placeholder="Enter your password"></label>
+      <label style="display:flex;gap:8px;align-items:center;font-size:13px;margin:-4px 0 16px"><input type="checkbox" id="showpw"> Show password</label>
+      <button class="btn" id="go" style="width:100%;justify-content:center;height:40px">Sign in</button>
+      <p id="lerr" class="ferr" style="margin-top:12px"></p>
+    </form>
+    <div class="demo hidden" id="demo"><p class="muted small" style="margin:0 0 6px">Demo accounts · one click sign-in</p><div id="demoList"></div></div>
+  </div></section>
+</div>
+
+<div id="shell" class="hidden">
+  <aside id="menu"></aside>
+  <div id="center">
+    <header class="topbar">
+      <button class="icon" id="tNav" title="Collapse menu"></button>
+      <div class="crumbs" id="crumbs"></div>
+      <div class="gsearch" id="gs"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><input id="gsearch" placeholder="Search this list…" autocomplete="off"></div>
+      <div style="position:relative"><button class="icon" id="bell" title="Notifications"></button><div id="pop" class="pop hidden"></div></div>
+      <button class="icon" id="tRef" title="Toggle reference panel"></button>
+    </header>
+    <div id="abar"></div>
+    <main id="main"></main>
+  </div>
+  <aside id="ref"></aside>
+</div>
+<div id="toast"></div><div id="drawerRoot"></div>
+<script src="phase1.js?v=6"></script><script src="phase2.js?v=4"></script><script src="phase4.js?v=1"></script><script src="phase5.js?v=2"></script><script src="phase6.js?v=1"></script><script src="phase7.js?v=1"></script><script src="app.js?v=12"></script></body></html>
