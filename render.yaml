@@ -2,18 +2,16 @@
 # Render > New > Blueprint. Set the three "sync: false" values in the dashboard.
 databases:
   - name: bms-db
-    plan: basic-256mb
+    plan: free
 services:
   - type: web
     name: bms
     runtime: docker
-    plan: starter            # paid plan needed for the persistent disk (uploads)
+    plan: free               # PILOT: free tier. Sleeps when idle; uploaded files are NOT kept across restarts.
     dockerfilePath: ./Dockerfile
     healthCheckPath: /app/
-    disk:
-      name: uploads
-      mountPath: /data/uploads
-      sizeGB: 5
+    # Production: change plan to starter and add this disk so uploads persist:
+    # disk: {name: uploads, mountPath: /data/uploads, sizeGB: 5}
     envVars:
       - key: DATABASE_URL
         fromDatabase: {name: bms-db, property: connectionString}
