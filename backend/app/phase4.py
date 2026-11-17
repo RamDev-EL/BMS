@@ -10,6 +10,8 @@ from .phase1 import scoped, in_scope, descendants, pdate, pnum
 
 router = APIRouter()
 UPLOAD = os.environ.get("UPLOAD_DIR", "/data/uploads")
+try: os.makedirs(UPLOAD, exist_ok=True)
+except OSError: UPLOAD = "/tmp/uploads"   # read-only host (e.g. Vercel): temporary, not persistent
 DOC_TYPES = ["lease", "purchase_deed", "govt_registration", "tax", "insurance", "occupancy_certificate", "fire_noc", "floor_plan", "litigation", "other"]
 UTIL_KINDS = ["electricity", "water", "internet", "gas", "telephone", "waste", "other"]
 META_INT = ("floors", "halls", "balconies", "kitchens", "declared_headcount", "litigation_count")

@@ -15,7 +15,9 @@ from .phase7 import router as phase7_router, seed_phase7
 from .phase2 import router as phase2_router, seed_phase2, seed_phase3
 
 UPLOAD = os.environ.get("UPLOAD_DIR", "/data/uploads")
-os.makedirs(UPLOAD, exist_ok=True)
+try: os.makedirs(UPLOAD, exist_ok=True)
+except OSError:   # read-only filesystem (serverless hosts): fall back to temp storage (not persistent)
+    UPLOAD = "/tmp/uploads"; os.makedirs(UPLOAD, exist_ok=True)
 app = FastAPI(title="Building Management System API", version="0.1")
 
 @app.on_event("startup")
@@ -389,5 +391,6 @@ app.include_router(phase7_router)
 # ---------- static front-ends ----------
 @app.get("/")
 def root(): return RedirectResponse("/app/")
-for mount, d in (("/app", "/srv/web"), ("/driver", "/srv/driver")):
+_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+for mount, d in (("/app", "/srv/web" if os.path.isdir("/srv/web") else os.path.join(_root, "web")), ("/driver", "/srv/driver" if os.path.isdir("/srv/driver") else os.path.join(_root, "driver"))):
     if os.path.isdir(d): app.mount(mount, StaticFiles(directory=d, html=True), name=mount.strip("/"))
